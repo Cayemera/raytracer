@@ -1,0 +1,8 @@
+Class:
+PPM Writer
+
+Methods:
+write(#int width, #int height, #int max color value, #string comments, #array of colors image)
+write(#int width, #int height, #int max color value, #string comments, #color color value)
+write(#int width, #int height, #int max color value, #string comments, #function rule)
+
