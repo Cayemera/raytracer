@@ -4,6 +4,12 @@
 PpmWriter::PpmWriter(){
     auto_name_set = false; //Auto Naming disabled by default
     line_length = 80; //Line length defaulted to 80 
+    progress.set_todo_char(" ");
+    progress.set_done_char("#");
+    progress.set_opening_bracket_char("[");
+    progress.set_closing_bracket_char("]");
+    progress.show_bar(true);
+
 }
 
 std::string PpmWriter::getAutoFileName(){
@@ -92,6 +98,7 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
 int PpmWriter::write(std::string filename, int width, int height, int color_max, std::string comments, std::function<Color (int,int,int,int)> pattern){
       //----------Setting output file name -----------//
     std::string output_file_name;
+    progress.set_niter(height);
     if(auto_name_set){
         output_file_name = getAutoFileName();
     }
@@ -121,6 +128,7 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
             }
             pixel_count++;
         }
+        progress.update();
     }
     //--------------------------------------//
     output_stream.close();
