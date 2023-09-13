@@ -7,6 +7,8 @@
 #include <string>
 #include <chrono>
 #include <complex>
+#include "../../ext/progressbar/include/progressbar.hpp"
+
 #pragma once
 
 
@@ -21,6 +23,7 @@ class PpmWriter{
         bool auto_name_set; //Specifies naming output file automatically
         int line_length;//Max length of a line in PPM before starting a new line
         std::string getAutoFileName();
+        progressbar progress;
     public:
         //PpmWriter Constructor
         PpmWriter();

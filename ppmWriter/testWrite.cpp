@@ -15,6 +15,9 @@ int main(){
     test_color.push_back(120);
     test_color.push_back(180);
     //imageWriter.write(name,120,110,255,comment,test_color); //Constant color
-    imageWriter.write(name,500,500,255,comment,checkers);
+    std::cout << "Generating PPM..." << std::endl;
+    imageWriter.write(name,1920,1080,255,comment,julia);
+    std::cout << std::endl;
+    std::cout << "PPM Generated!" << std::endl;
 
 }
