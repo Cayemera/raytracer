@@ -4,6 +4,7 @@
 PpmWriter::PpmWriter(){
     auto_name_set = false; //Auto Naming disabled by default
     line_length = 80; //Line length defaulted to 80 
+    output_path = ""; //Output path current directory by default
     progress.set_todo_char(" ");
     progress.set_done_char("#");
     progress.set_opening_bracket_char("[");
@@ -20,7 +21,17 @@ std::string PpmWriter::getAutoFileName(){
     return auto_file_name_s.str();
 }
 
+int PpmWriter::setOutputPath(std::string path){
+    if(!std::filesystem::exists(path)) {
+        std::cout << "Path does not exist!" << std::endl;
+        return 1;
+    }
+    output_path = path;
+    return 0;
+}
+
 int PpmWriter::write(std::string filename, int width, int height, int color_max, std::string comments, Color image[]){
+    progress.reset(); // Reset progress bar incase of another write
     //----------Setting output file name -----------//
     std::string output_file_name;
     if(auto_name_set){
@@ -29,6 +40,7 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
     else{
         output_file_name = filename;
     }
+    output_file_name.insert(0,output_path);
     //----------------------------------------------//
     std::ofstream output_stream(output_file_name, std::ios::out | std::ios::binary);
     //-----------Writing Head----------------//
@@ -53,11 +65,10 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
     //--------------------------------------//
     output_stream.close();
     return 0;
-    //std::ofstream filename
-    
 }
 
 int PpmWriter::write(std::string filename, int width, int height, int color_max, std::string comments, Color color_const){
+    progress.reset(); // Reset progress bar incase of another write
 
     //----------Setting output file name -----------//
     std::string output_file_name;
@@ -67,6 +78,7 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
     else{
         output_file_name = filename;
     }
+    output_file_name.insert(0,output_path);
     //----------------------------------------------//
     std::ofstream output_stream(output_file_name, std::ios::out | std::ios::binary);
     //-----------Writing Head----------------//
@@ -91,11 +103,11 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
     //--------------------------------------//
     output_stream.close();
     return 0;
-    //std::ofstream filename
 }
 
 
 int PpmWriter::write(std::string filename, int width, int height, int color_max, std::string comments, std::function<Color (int,int,int,int)> pattern){
+    progress.reset(); // Reset progress bar incase of another write
       //----------Setting output file name -----------//
     std::string output_file_name;
     progress.set_niter(height);
@@ -105,6 +117,7 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
     else{
         output_file_name = filename;
     }
+    output_file_name.insert(0,output_path);
     //----------------------------------------------//
     std::ofstream output_stream(output_file_name, std::ios::out | std::ios::binary);
     //-----------Writing Head----------------//
@@ -133,6 +146,5 @@ int PpmWriter::write(std::string filename, int width, int height, int color_max,
     //--------------------------------------//
     output_stream.close();
     return 0;
-    //std:
 }
 

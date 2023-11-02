@@ -36,6 +36,8 @@ Color julia(int x, int y, int width, int height){
     double zImag = y * ((maxI - minI) / height) + minI;
     double cReal = -.79;
     double cImag = .15;
+    //double cReal = .28;
+    //double cImag = .008;
     int i = 0;
     int maxIter = 3000;
     while(i<maxIter && zReal * zReal + zImag * zImag < 4.0){
@@ -74,7 +76,7 @@ Color squares(int x, int y, int width, int height){
 
 Color checkers(int x, int y, int width, int height){
     Color new_color;
-    int square_size = 3;
+    int square_size = 25;
     int hSquare = x / square_size;
     int vSquare = y /square_size;
     if(vSquare % 2 == 0){
